@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Maintenance {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idMaintenance;
@@ -26,6 +25,6 @@ public class Maintenance {
     String description;
 
     @ManyToOne
-    @JoinColumn(name = "id_vehicule")
+    @JoinColumn(name = "vehicule_id")
     Vehicule vehicule;
 }

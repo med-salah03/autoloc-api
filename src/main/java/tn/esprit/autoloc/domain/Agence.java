@@ -16,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Agence {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idAgence;
