@@ -9,7 +9,9 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -17,7 +19,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Vehicule {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idVehicule;
@@ -37,18 +38,20 @@ public class Vehicule {
     StatutVehicule statut;
 
     @ManyToOne
-    @JoinColumn(name = "id_agence")
+    @JoinColumn(name = "agence_id")
     Agence agence;
 
     @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
     @JsonIgnore
     List<Maintenance> maintenances = new ArrayList<>();
 
-    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
-    @JsonIgnore
-    List<Equipement> equipements = new ArrayList<>();
-
-    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "vehicule")
     @JsonIgnore
     List<Reservation> reservations = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "vehicule_equipement",
+            joinColumns = @JoinColumn(name = "vehicule_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipement_id"))
+    Set<Equipement> equipements = new HashSet<>();
 }

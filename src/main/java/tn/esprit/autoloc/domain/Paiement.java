@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class Paiement {
     ModePaiement modePaiement;
 
     @ManyToOne
-    @JoinColumn(name = "id_contrat")
+    @JoinColumn(name = "contrat_id")
+    @JsonIgnore
     Contrat contrat;
 }

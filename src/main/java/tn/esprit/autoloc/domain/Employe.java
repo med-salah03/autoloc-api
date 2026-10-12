@@ -12,7 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employe {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idEmploye;
@@ -25,6 +24,6 @@ public class Employe {
     RoleEmploye role;
 
     @ManyToOne
-    @JoinColumn(name = "id_agence")
+    @JoinColumn(name = "agence_id")
     Agence agence;
 }

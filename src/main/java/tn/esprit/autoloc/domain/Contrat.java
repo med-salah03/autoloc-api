@@ -1,6 +1,5 @@
 package tn.esprit.autoloc.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Contrat {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idContrat;
@@ -30,10 +28,9 @@ public class Contrat {
     boolean valide;
 
     @OneToOne
-    @JoinColumn(name = "id_reservation")
+    @JoinColumn(name = "reservation_id", unique = true)
     Reservation reservation;
 
-    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Paiement> paiements = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +15,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reservation {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idReservation;
@@ -27,13 +27,16 @@ public class Reservation {
     StatutReservation statut;
 
     @ManyToOne
-    @JoinColumn(name = "id_vehicule")
-    Vehicule vehicule;
-
-    @ManyToOne
-    @JoinColumn(name = "id_client")
+    @JoinColumn(name = "client_id")
     Client client;
 
+    // ManyToOne : plusieurs reservations pour un vehicule
+    @ManyToOne
+    @JoinColumn(name = "vehicule_id")
+    Vehicule vehicule;
+
+    // OneToOne : cote inverse (la cle etrangere est dans Contrat)
     @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
+    @JsonIgnore
     Contrat contrat;
 }
